@@ -259,12 +259,7 @@ do_parent (int master)
 			}
         } else if (strstr (masterbuf, str_sss_failed) && CONV_GOT_SSS == state)
         {
-            if (CONV_GOT_SSS == state)
                 state = CONV_WAIT_NEW;
-            else
-            {
-                    return CONV_ERR;
-            }
         }
 	}
 
