@@ -79,6 +79,7 @@ do_parent (int master)
 		static const char str_sss_new[] = "New Password:";
 		static const char str_retype[] = "Re-type new password:";
 		static const char str_sss_retype[] = "Reenter new Password:";
+        static const char str_sss_failed[] = "Password change failed.";
 
 		masterbuf[count] = '\0';
 		write (STDOUT_FILENO, masterbuf, count);
@@ -256,7 +257,15 @@ do_parent (int master)
 			{
 				return CONV_ERR;
 			}
-		}
+        } else if (strstr (masterbuf, str_sss_failed) && CONV_GOT_SSS == state)
+        {
+            if (CONV_GOT_SSS == state)
+                state = CONV_WAIT_NEW;
+            else
+            {
+                    return CONV_ERR;
+            }
+        }
 	}
 
 	return state;
